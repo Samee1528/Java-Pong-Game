@@ -58,24 +58,34 @@ public class GamePanel extends JPanel implements Runnable{
 
     }
     public void checkCollision() {
+        //stops paddles at window edges
+        if (paddle1.y<=0)
+            paddle2.y=0;
+        if (paddle1.y >= (GAME_HEIGHT-PADDLE_HEIGHT))
+            paddle1.y = GAME_HEIGHT-PADDLE_HEIGHT;
+        if (paddle2.y<=0)
+            paddle2.y=0;
+        if (paddle2.y >= (GAME_HEIGHT-PADDLE_HEIGHT))
+            paddle2.y = GAME_HEIGHT-PADDLE_HEIGHT;
+
 
     }
     public void run() {
         // game loop
         long lastTime = System.nanoTime();
-        double amountOfTricks = 60.0;
-        double ns = 1000000000 / amountOfTricks;
+        double amountOfTicks = 60.0;
+        double ns = 1000000000 / amountOfTicks;
         double delta = 0;
         while (true) {
             long now = System.nanoTime();
-            delta += (now - lastTime)/ns;
+            delta += (now -lastTime)/ns;
             lastTime = now;
             if (delta >=1) {
                 move();
                 checkCollision();
                 repaint();
                 delta--;
-                System.out.println("TEST");
+                System.out.println("test");
             }
         }
 
